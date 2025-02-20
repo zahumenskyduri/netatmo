@@ -142,7 +142,7 @@ def get_station_data():
         logging.debug("%d %s", response.status_code, response.text)
         response.raise_for_status()
         g_data = response.json()
-        write_json(g_data, data_filename)    
+        write_json(g_data, data_filename)
     except requests.exceptions.HTTPError as e:
         logging.warning("get_station_data() HTTPError")
         logging.warning("%d %s", e.response.status_code, e.response.text)
@@ -215,7 +215,7 @@ def main():
         logging.error("Please edit %s and try again.", config_filename)
         return
 
-    # read last token    
+    # read last token
     if os.path.isfile(token_filename):
         g_token = read_json(token_filename)
     else:
@@ -240,7 +240,7 @@ def main():
             os.system('python3 ./display.py')
         # sleep 10 minutes
         try:
-            time.sleep(600)
+            time.sleep(3600) #adjust how often to reresh in seconds)
         except KeyboardInterrupt:
             # Crtl+C
             logging.info("Keyboard exception received. Exiting.")
