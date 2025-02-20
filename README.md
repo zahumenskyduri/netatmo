@@ -250,7 +250,7 @@ Download the code in your home dir:
 
 ```
 cd
-git clone https://github.com/psauliere/netatmo.git
+git clone https://github.com/zahumenskyduri/netatmo.git
 cd netatmo
 ```
 
@@ -342,9 +342,12 @@ Files created by the program:
 In this example, the display shows:
 
 - the time of the `getstationdata` API call.
-- the indoor temperature and trend
 - the outdoor temperature and trend
-- the rain in mm/h
+- the indoor temperature and trend
+- the indoor pressure and trend
+- the inddor CO2 level
+- the indoor noise value
+- the indoor humidity
 
 <a name="running"></a>
 
@@ -354,7 +357,7 @@ Run `./netatmo.py`, for instance in a `tmux` session to let it run even when you
 
 On the console, you will see that:
 
- - Every 10 minutes, netatmo.py gets weather data and prints 1 line on the console with the date, time, temperatures and, if you have the modules, rain and wind data.
+ - Every 10 minutes, netatmo.py gets weather data and prints 1 line on the console with the date, time, temperatures and, if you have the modules, rain and wind data. 
  - Every three hours, the access token expires and the program refreshes it.
 
 To stop the program, type Ctrl+C.
