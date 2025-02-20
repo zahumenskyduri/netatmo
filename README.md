@@ -30,8 +30,6 @@ The [NetAtmo Smart Weather Station][1] is a nice weather station with an indoor 
 
 The modules themselves don't have any kind of display, so this project is an attempt to make a compact dedicated display for the NetAtmo weather station with at least indoor and outdoor temperatures, using a Raspberry Pi and a e-Paper screen.
 
-The first setup I tried is this one:
-
 - [Raspberry Pi Zero W][3]. The Zero W can be found with a soldered header if soldering is not your thing: it is called a [Raspberry Pi Zero WH][4]. See [here][5] or [here][6].
 
 - [PaPiRus ePaper / eInk Screen HAT for Raspberry Pi][7]. I used the 2.7 inch screen, which has a resolution of 264 x 176.
@@ -48,7 +46,7 @@ The first setup I tried is this one:
 
 ![PaPiRus photo](images/papirus_2in7.jpg "Raspberry Pi Zero W and PaPiRus 2.7inch ePaper HAT")
 
-Then I tried a second setup:
+Second setup:
 
 - [Raspberry Pi 3 B+][8] or [Raspberry Pi 4][9].
 
@@ -345,7 +343,7 @@ In this example, the display shows:
 - the outdoor temperature and trend
 - the indoor temperature and trend
 - the indoor pressure and trend
-- the inddor CO2 level
+- the indoor CO2 level
 - the indoor noise value
 - the indoor humidity
 
@@ -392,6 +390,11 @@ tmux a
 and detach from the session with this key sequence: `Ctrl+B`, `d`.
 
 <a name="references"></a>
+
+# 3d printable case
+
+I remixed raspberry case to fit raspberry pi3 with Waveshare 2.7" 
+[Printables](https://www.printables.com/model/1191994-case-for-raspberry-pi-and-waveshare-27-e-ink-displ)
 
 # References
 
