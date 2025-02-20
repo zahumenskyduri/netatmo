@@ -349,6 +349,12 @@ In this example, the display shows:
 
 <a name="running"></a>
 
+# Data Refresh
+
+You can adjust how ofthen the data and display refresh, edit value in seconds in `netatmo.py`:
+
+'time.sleep(3600) #adjust how often to reresh in seconds)'
+
 # Running the program
 
 Run `./netatmo.py`, for instance in a `tmux` session to let it run even when you disconnect your SSH session.
