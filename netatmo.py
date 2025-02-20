@@ -174,7 +174,7 @@ def main():
     global g_data
     #print("netatmo.py v0.17 2019-10-31")
     #print("netatmo.py v0.18 2021-01-10")
-    print("netatmo.py v0.19 2024-07-21")
+    print("netatmo.py v0.99 2025-02-20")
 
     # read config
     if os.path.isfile(config_filename):
