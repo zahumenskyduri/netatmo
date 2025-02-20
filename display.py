@@ -78,7 +78,7 @@ def draw_image():
     #font_size_time = int((width - 10) / (20 * 0.65))    # YYYY-MM-DD HH:MM:SS
     #font_temp = ImageFont.truetype(font_file, font_size_temp)
     #font_time = ImageFont.truetype(font_file, font_size_time)
-    font_temp = ImageFont.truetype(font_file, 40)
+    font_temp = ImageFont.truetype(font_file, 25)
     font_time = ImageFont.truetype(font_file, 20)
 
     # read data
@@ -99,11 +99,18 @@ def draw_image():
     unit_rain = ['mm/h', 'in/h'][user_admin["unit"]]
     unit_wind = ['kph', 'mph', 'm/s', 'beaufort', 'knot'][user_admin["windunit"]]
     unit_pressure = ['mbar', 'inHg', 'mmHg'][user_admin["pressureunit"]]
+    unit_CO2 = ['ppm', 'ppm', 'ppm'][user_admin["unit"]]
+    unit_noise = ['dB', 'dB', 'dB'][user_admin["unit"]]
+    unit_humidity = ['%', '%', '%'][user_admin["unit"]]
 
     # get and format values
     indoor_temp_str = 'N/A'
     indoor_pressure_str = 'N/A'
+    indoor_co2_str = 'N/A'
+    indoor_noise_str = 'N/A'
+    indoor_humidity_str = 'N/A'
     outdoor_temp_str = 'N/A'
+    outdoor_humidity = 'N/A'
     rain_str = 'N/A'
     wind_str = 'N/A'
 
@@ -119,6 +126,9 @@ def draw_image():
         indoor_pressure_str = '{0:.1f}'.format(indoor_data["Pressure"]) + " " + unit_pressure
         if "pressure_trend" in indoor_data:
             indoor_pressure_str += trend_symbol(indoor_data["pressure_trend"])
+        indoor_co2_str = '{0:.1f}'.format(indoor_data["CO2"]) + " " + unit_CO2
+        indoor_noise_str = '{0:.1f}'.format(indoor_data["Noise"]) + " " + unit_noise
+        indoor_humidity_str = '{0:.1f}'.format(indoor_data["Humidity"]) + " " + unit_humidity
 
     # other modules: outdoor temperature, rain (lines 2 & 3), wind (unused), optional indoor (unused)
     for module in device["modules"]:
@@ -130,12 +140,13 @@ def draw_image():
                 outdoor_temp_str = '{0:.2f}'.format(module_data["Temperature"]) + " " + unit_temp
                 if "temp_trend" in module_data:
                     outdoor_temp_str += trend_symbol(module_data["temp_trend"])
+                outdoor_humidity = '{0:.2f}'.format(module_data["Humidity"]) + " " + unit_humidity
             elif module_type == "NAModule2":
                 # Wind Gauge
-                wind_str = '{0:.1f}'.format(module_data["WindStrength"]) + " " + unit_wind
+               wind_str = '{0:.1f}'.format(module_data["WindStrength"]) + " " + unit_wind
             elif module_type == "NAModule3":
                 # Rain Gauge
-                rain_str = '{0:.1f}'.format(module_data["Rain"]) + " " + unit_rain
+               rain_str = '{0:.1f}'.format(module_data["Rain"]) + " " + unit_rain
             elif module_type == "NAModule4":
                 # Optional indoor module
                 pass
@@ -143,26 +154,30 @@ def draw_image():
     # width and height of strings
     (width_indoor, height_indoor) = textsize(indoor_temp_str, font=font_temp)
     (width_outdoor, height_outdoor) = textsize(outdoor_temp_str, font=font_temp)
-    (width_rain, height_rain) = textsize(rain_str, font=font_temp)
+#    (width_rain, height_rain) = textsize(rain_str, font=font_temp)
     (width_time, height_time) = textsize(data_time_str, font=font_time)
 
     # which is bigger?
     txtwidth, txtheight = width_indoor, height_indoor
     if width_outdoor > txtwidth:
         txtwidth = width_outdoor
-    if width_rain > txtwidth:
-        txtwidth = width_rain
+#    if width_rain > txtwidth:
+#        txtwidth = width_rain
 
-    x = int((width - txtwidth) / 2)
-    y = int((height - 3*txtheight - 10) / 2)
+    x = int((width - txtwidth) / 2) -40  # Move text 40 pixels to the left
+    y = int((height - 5*txtheight - 10) / 2.5)
 
-    draw.rectangle((2, 2, width - 2, height - 2), fill=WHITE, outline=BLACK)
+    draw.rectangle((2, 2, width - 4, height - 4), fill=WHITE, outline=BLACK)
     # temperatures and rain
-    draw.text((x, y), indoor_temp_str, fill=BLACK, font=font_temp)
-    draw.text((x, y + txtheight + 5), outdoor_temp_str, fill=BLACK, font = font_temp)
-    draw.text((x, y + 2*txtheight + 10), rain_str, fill=BLACK, font = font_temp)
+    draw.text((x, y),f"Vonku: { outdoor_temp_str}", fill=BLACK, font = font_temp)
+    draw.text((x, y + txtheight + 0),f"Dnu: {indoor_temp_str}", fill=BLACK, font=font_temp)
+    draw.text((x, y + 2*txtheight + 4),f"Tlak: {indoor_pressure_str}", fill=BLACK, font = font_temp)
+    draw.text((x, y + 3*txtheight + 8),f"CO2: {indoor_co2_str}", fill=BLACK, font = font_temp)
+    draw.text((x, y + 4*txtheight + 12),f"Hluk: { indoor_noise_str}", fill=BLACK, font = font_temp)
+    draw.text((x, y + 5*txtheight + 16),f"Vlhkost: { indoor_humidity_str}", fill=BLACK, font = font_temp)
+    # draw.text((x, y + 2*txtheight + 10), rain_str, fill=BLACK, font = font_temp)
     # time
-    draw.text((width - width_time - 5, 5), data_time_str, fill = BLACK, font = font_time)
+    draw.text((width - 255, 5), data_time_str, fill = BLACK, font = font_time)
 
 def main():
     """Main function"""
