@@ -45,34 +45,6 @@ def write_json(data, filename):
     with open(filename, 'w') as f:
         json.dump(data, f, indent = 2)
 
-#def authenticate():
-#    """NetAtmo API authentication. Result:  g_token and token.json file."""
-#    global g_token
-#    payload = {
-#        'grant_type': 'password',
-#        'username': g_config['username'],
-#        'password': g_config['password'],
-#        'client_id': g_config['client_id'],
-#        'client_secret': g_config['client_secret'],
-#        'scope': 'read_station'
-#    }
-#    try:
-#        response = requests.post("https://api.netatmo.com/oauth2/token", data=payload)
-#        logging.debug("%d %s", response.status_code, response.text)
-#        response.raise_for_status()
-#        g_token = response.json()
-#        write_json(g_token, token_filename)
-#        logging.info("authenticate() OK.")
-#    except requests.exceptions.HTTPError as e:
-#        logging.error("authenticate() HTTPError")
-#        logging.error("%d %s", e.response.status_code, e.response.text)
-#        #logging.info("authenticate() exiting")
-#        #sys.exit(1)
-#    except requests.exceptions.RequestException:
-#        logging.error("authenticate() RequestException", exc_info=1)
-#        #logging.info("authenticate() exiting")
-#        #sys.exit(1)
-
 def get_new_token():
     """Instruct the user to authenticate on the dev portal and get a new token."""
     if not os.path.isfile(token_filename):
