@@ -116,7 +116,7 @@ def draw_image():
 
     data_time_str = timestr(g_data["time_server"])
 
-    # main module: indoor temperature (line 1) and pressure (not used)
+    # main module: indoor
     device = g_data["body"]["devices"][0]
     if "dashboard_data" in device:
         indoor_data = device["dashboard_data"]
@@ -130,7 +130,7 @@ def draw_image():
         indoor_noise_str = '{0:.1f}'.format(indoor_data["Noise"]) + " " + unit_noise
         indoor_humidity_str = '{0:.1f}'.format(indoor_data["Humidity"]) + " " + unit_humidity
 
-    # other modules: outdoor temperature, rain (lines 2 & 3), wind (unused), optional indoor (unused)
+    # other modules: outdoor temperature,outdoor humidity, rain (unused), wind (unused), optional indoor (unused)
     for module in device["modules"]:
         if "dashboard_data" in module:
             module_type = module["type"]
@@ -168,7 +168,7 @@ def draw_image():
     y = int((height - 5*txtheight - 10) / 2.5)
 
     draw.rectangle((2, 2, width - 4, height - 4), fill=WHITE, outline=BLACK)
-    # temperatures and rain
+    # sensor output (localication f"******:)
     draw.text((x, y),f"Vonku: { outdoor_temp_str}", fill=BLACK, font = font_temp)
     draw.text((x, y + txtheight + 0),f"Dnu: {indoor_temp_str}", fill=BLACK, font=font_temp)
     draw.text((x, y + 2*txtheight + 4),f"Tlak: {indoor_pressure_str}", fill=BLACK, font = font_temp)
